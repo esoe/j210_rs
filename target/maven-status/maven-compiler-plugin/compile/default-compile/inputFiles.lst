@@ -1,7 +1,9 @@
 C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\api\RestAddressService.java
+C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\transport\AddressModel.java
 C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\api\RestConfig.java
+C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\entities\ClientEntity.java
 C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\api\RestClientService.java
-C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\entities\Address.java
 C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\services\RepositoryFace.java
+C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\transport\ClientModel.java
+C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\entities\AddressEntity.java
 C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\services\Repository.java
-C:\Users\Strannik\Documents\esoe\code\j210_rs\src\main\java\ru\molokoin\j210_rs\entities\Client.java

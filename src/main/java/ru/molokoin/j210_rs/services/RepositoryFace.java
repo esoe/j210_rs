@@ -3,8 +3,8 @@ package ru.molokoin.j210_rs.services;
 import java.util.List;
 
 import jakarta.ejb.Local;
-import ru.molokoin.j210_rs.entities.Address;
-import ru.molokoin.j210_rs.entities.Client;
+import ru.molokoin.j210_rs.entities.AddressEntity;
+import ru.molokoin.j210_rs.entities.ClientEntity;
 
 @Local
 public interface RepositoryFace {
@@ -14,16 +14,16 @@ public interface RepositoryFace {
     <T> void save(T entity);
     <T> void update(T entity);
 
-    List<Client> getClients();
-    List<Client> getClients(String filterName, String filterType);
-    Client getClientById(Integer id);
-    Client createClient(Client client);
-    Client updateClient(Client client);
+    List<ClientEntity> getClients();
+    List<ClientEntity> getClients(String filterName, String filterType);
+    ClientEntity getClientById(Integer id);
+    ClientEntity createClient(ClientEntity client);
+    ClientEntity updateClient(ClientEntity client);
     void removeClient(Integer id);
-    Address createAddress(Address address);
-    Address updateAddress(Address address);
+    AddressEntity createAddress(AddressEntity address);
+    AddressEntity updateAddress(AddressEntity address);
     void removeAddress(Integer id);
-    Address getAddressById(Integer id);
-    List<Address> getAddresses();
-    List<Address> getAddressesByClientID(Integer client_id);
+    AddressEntity getAddressById(Integer id);
+    List<AddressEntity> getAddresses();
+    List<AddressEntity> getAddressesByClientID(Integer client_id);
 }

@@ -10,8 +10,8 @@ import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import ru.molokoin.j210_rs.entities.Address;
-import ru.molokoin.j210_rs.entities.Client;
+import ru.molokoin.j210_rs.entities.AddressEntity;
+import ru.molokoin.j210_rs.entities.ClientEntity;
 
 @Singleton
 public class Repository implements RepositoryFace{
@@ -50,35 +50,31 @@ public class Repository implements RepositoryFace{
     }
 
     @Override
-    public List<Client> getClients() {
-        // String sql = "SELECT id, name, client_type, added FROM Clients";
-        // Query query = em.createNativeQuery(sql, Client.class);
-        // List<Client> clients = query.getResultList();
-        // return clients;
-        return em.createNamedQuery("Clients.findAll", Client.class).getResultList();
+    public List<ClientEntity> getClients() {
+        return em.createNamedQuery("Clients.findAll", ClientEntity.class).getResultList();
     }
 
     
 
     @Override
-    public List<Client> getClients(String filterName, String filterType) {
+    public List<ClientEntity> getClients(String filterName, String filterType) {
         if (filterName == null){filterName = "";}
         if (filterType == null){filterType = "";}
         String sql = "SELECT id, name, client_type, added FROM Clients WHERE name LIKE '%" + filterName+ "%' AND client_type LIKE '%" + filterType+ "%'";
-        Query query = em.createNativeQuery(sql, Client.class);
-        List<Client> clients = query.getResultList();
+        Query query = em.createNativeQuery(sql, ClientEntity.class);
+        List<ClientEntity> clients = query.getResultList();
         return clients;
     }
     
     @Override
-    public Client getClientById(Integer id){
-        return em.find(Client.class, id);
+    public ClientEntity getClientById(Integer id){
+        return em.find(ClientEntity.class, id);
     }
 
     @Override
-    public Client createClient(Client client) {
+    public ClientEntity createClient(ClientEntity client) {
         String sql = "SELECT * FROM Clients WHERE name='" + client.getName() + "' AND client_type='" + client.getClient_type() + "'";
-        List<Client> list = em.createNativeQuery(sql, Client.class).getResultList();
+        List<ClientEntity> list = em.createNativeQuery(sql, ClientEntity.class).getResultList();
         if(list.size()>0) client = list.get(0);
         em.merge(client);
         em.flush();
@@ -86,7 +82,7 @@ public class Repository implements RepositoryFace{
     }
 
     @Override
-    public Client updateClient(Client client) {
+    public ClientEntity updateClient(ClientEntity client) {
         em.merge(client);
         em.flush();
         return client;
@@ -98,10 +94,10 @@ public class Repository implements RepositoryFace{
      */
     @Override
     public void removeClient(Integer id) {
-        Client client = getClientById(id);
-        Collection <Address> addresses =  client.getAddresses();
+        ClientEntity client = getClientById(id);
+        Collection <AddressEntity> addresses =  client.getAddresses();
         if (addresses.size() > 0){
-            for (Address address : addresses) {
+            for (AddressEntity address : addresses) {
                 em.remove(address);
             }
         }
@@ -110,7 +106,7 @@ public class Repository implements RepositoryFace{
     }
 
     @Override
-    public Address createAddress(Address address) {
+    public AddressEntity createAddress(AddressEntity address) {
         String sql = "SELECT * FROM Addresses WHERE ip='"   + address.getIp() 
                                                             + "' AND mac='" + address.getMac() 
                                                             + "' AND model='" + address.getModel()
@@ -118,14 +114,14 @@ public class Repository implements RepositoryFace{
                                                             + "' AND client_id='" + address.getClient().getId()
                                                             //+ "' AND client_id='" + address.getClient_id()
                                                             + "'";
-        List<Address> list = em.createNativeQuery(sql, Address.class).getResultList();
+        List<AddressEntity> list = em.createNativeQuery(sql, AddressEntity.class).getResultList();
         if(list.size()>0) address = list.get(0);
         em.merge(address);
         em.flush();
         return address;
     }
     @Override
-    public Address updateAddress(Address address) {
+    public AddressEntity updateAddress(AddressEntity address) {
         em.merge(address);
         em.flush();
         return address;
@@ -138,13 +134,13 @@ public class Repository implements RepositoryFace{
     }
 
     @Override
-    public Address getAddressById(Integer id){
-        return em.find(Address.class, id);
+    public AddressEntity getAddressById(Integer id){
+        return em.find(AddressEntity.class, id);
     }
 
     @Override
-    public List<Address> getAddresses() {
-        return em.createNamedQuery("Addresses.findAll", Address.class).getResultList();
+    public List<AddressEntity> getAddresses() {
+        return em.createNamedQuery("Addresses.findAll", AddressEntity.class).getResultList();
     }
     /**
      * Метод возвращает перечень адресов, найденных в таблице Addresses
@@ -152,9 +148,9 @@ public class Repository implements RepositoryFace{
      * - метод оказался бесполезным, так как Сущности Клиентов содержат списки сущностей, привязанных к ним адресов.
      */
     @Override
-    public List<Address> getAddressesByClientID(Integer client_id){
+    public List<AddressEntity> getAddressesByClientID(Integer client_id){
         String sql = "SELECT * FROM Addresses WHERE client_id=" + client_id;
-        List<Address> list = em.createNativeQuery(sql, Address.class).getResultList();
+        List<AddressEntity> list = em.createNativeQuery(sql, AddressEntity.class).getResultList();
         return list;
     }
 }
