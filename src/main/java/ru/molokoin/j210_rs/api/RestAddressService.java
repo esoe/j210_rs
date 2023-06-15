@@ -5,6 +5,7 @@ import jakarta.ejb.Stateless;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import ru.molokoin.j210_rs.services.RepositoryFace;
+import ru.molokoin.j210_rs.transport.AddressModel;
 import ru.molokoin.j210_rs.entities.AddressEntity;
 import ru.molokoin.j210_rs.entities.ClientEntity;
 
@@ -41,7 +42,7 @@ public class RestAddressService {
 
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public void create(AddressEntity address){
+    public void create(AddressModel address){
         System.out.println("Добавление адреса ...");
         repository.save(address);
     }

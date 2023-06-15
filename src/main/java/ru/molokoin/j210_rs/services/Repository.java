@@ -34,12 +34,24 @@ public class Repository implements RepositoryFace{
 
     @Override
     public <T> void delete(Class<T> clazz, Integer id) {
-        T entity = em.find(clazz, id);
-        em.remove(entity);
+        if (clazz.getSimpleName().equals("ClientEntity")){
+            ClientEntity entity = (ClientEntity)em.find(clazz, id);
+            Collection<AddressEntity> cae = entity.getAddresses();
+            if (cae.size() > 0){
+                for (AddressEntity address : cae) {
+                em.remove(address);
+                }
+            }
+            em.remove(entity);
+        }else{
+            T entity = em.find(clazz, id);
+            em.remove(entity);
+        }
     }
 
     @Override
     public <T> void save(T entity) {
+        //
         em.persist(entity);
     }
 
@@ -107,13 +119,13 @@ public class Repository implements RepositoryFace{
 
     @Override
     public AddressEntity createAddress(AddressEntity address) {
-        String sql = "SELECT * FROM Addresses WHERE ip='"   + address.getIp() 
-                                                            + "' AND mac='" + address.getMac() 
-                                                            + "' AND model='" + address.getModel()
-                                                            + "' AND address='" + address.getAddress()
-                                                            + "' AND client_id='" + address.getClient().getId()
-                                                            //+ "' AND client_id='" + address.getClient_id()
-                                                            + "'";
+        String sql = "SELECT * FROM Addresses "
+            + "WHERE ip='"   + address.getIp() 
+            + "' AND mac='" + address.getMac() 
+            + "' AND model='" + address.getModel()
+            + "' AND address='" + address.getAddress()
+            + "' AND client_id='" + address.getClient().getId()
+            + "'";
         List<AddressEntity> list = em.createNativeQuery(sql, AddressEntity.class).getResultList();
         if(list.size()>0) address = list.get(0);
         em.merge(address);
